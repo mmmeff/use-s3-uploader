@@ -1,5 +1,5 @@
 import { RefObject, useCallback, useEffect, useMemo } from "react";
-import S3Uploader from './s3Uploader';
+import S3Uploader from './s3Uploader.js';
 
 type Fn = (...args: any) => any;
 

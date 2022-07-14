@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,44 +11,15 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "outDir": "dist",
     "isolatedModules": true,
     "jsx": "preserve",
-    // "typeRoots": ["./node_modules/@types"],
     "baseUrl": "./",
-    "paths": {
-      "@material-ui/styled-engine": [
-        "node_modules/@material-ui/styled-engine-sc"
-      ],
-      "@root/*": [
-        "*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@stores/*": [
-        "stores/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@constants/*": [
-        "constants/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ]
-    }, // 路径别名设置
     "allowSyntheticDefaultImports": true,
-    // "noUnusedLocals": true,  // 未使用的组件检测
-    // "noUnusedParameters": true,  // 未使用的参数检测
     "preserveConstEnums": true,
     "removeComments": false,
     "sourceMap": true

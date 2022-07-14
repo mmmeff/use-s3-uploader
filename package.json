@@ -9,6 +9,10 @@
     "type": "git",
     "url": "https://github.com/mmmeff/use-s3-uploader.git"
   },
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "author": "Matthew Frey <matthewfrey118@gmail.com>",
   "homepage": "https://github.com/mmmeff/use-s3-uploader",
   "license": "MIT",

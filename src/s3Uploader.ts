@@ -1,13 +1,11 @@
 import mime from 'mime-types';
 import type { Options } from './useS3Uploader';
 
-type Fn = (...args: any) => any;
-
 function getFileMimeType(file: File) {
   return file.type || mime.lookup(file.name);
 }
 
-class S3Upload {
+class S3Upload<T> {
   test: boolean;
   server: string;
   s3path: string;
@@ -15,15 +13,15 @@ class S3Upload {
   signingUrlMethod: string;
   successResponses: any[number];
   contentDisposition: string | null;
-  uploadRequestHeaders: any;
+  uploadRequestHeaders: Options<T>['uploadRequestHeaders'];
   httprequest: any;
   signingUrlQueryParams: any;
-  signingUrlHeaders: Options['signingUrlHeaders'] | null;
+  signingUrlHeaders: Options<T>['signingUrlHeaders'] | null;
   signingUrlWithCredentials: any;
   el: HTMLInputElement;
-  getSignedUrl: Options['getSignedUrl']
+  getSignedUrl: Options<T>['getSignedUrl']
 
-  constructor(options: Options) {
+  constructor(options: Options<T>) {
     const s3Upload = this;
     s3Upload.test = false;
     s3Upload.server = '';
@@ -113,8 +111,7 @@ class S3Upload {
       headers['content-disposition'] = disposition + '; filename="' + fileName + '"';
     }
     [signResult.headers, this.uploadRequestHeaders].filter(Boolean).forEach(function (hdrs) {
-      const resolvedHeaders = typeof hdrs === 'function' ? hdrs(file) : hdrs;
-
+      const resolvedHeaders = typeof hdrs === 'function' ? hdrs(signResult, file) : hdrs;
       Object.entries(resolvedHeaders).forEach(function (pair) {
         headers[pair[0].toLowerCase()] = pair[1];
       })

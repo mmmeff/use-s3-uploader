@@ -3,9 +3,9 @@ import S3Uploader from './s3Uploader';
 
 type Fn = (...args: any) => any;
 
-export type Options = {
+export type Options<T> = {
   test?: boolean
-  getSignedUrl?: (file: File, next: (data: { signedUrl: string }) => void) => void 
+  getSignedUrl?: (file: File, next: (data: { signedUrl: string } & T) => void) => void 
   onUploadStart?: (file: File, next: (file: File) => void) => void
   onSignedUrl?: Fn
   onProgress?: (percent: number, status: any, file: File) => void
@@ -15,11 +15,11 @@ export type Options = {
   signingUrlMethod?: string
   signingUrlHeaders?: Object | ((file: File) => (Object))
   accept?: string
-  uploadRequestHeaders?: Object | Fn
+  uploadRequestHeaders?: Object | ((file: File) => (Object))
   contentDisposition?: string
 }
 
-const useS3Uploader = (options: Options, inputRef: RefObject<HTMLInputElement>) => {
+const useS3Uploader = <T>(options: Options<T>, inputRef: RefObject<HTMLInputElement>) => {
   const s3Upload = useMemo(() => {
     const s3Uploader = new S3Uploader(options);
     if (options.test) console.log(s3Uploader);

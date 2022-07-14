@@ -11,7 +11,7 @@ export type Options<T> = {
   onUploadStart?: (file: File, next: (file: File) => void) => void
   onSignedUrl?: Fn
   onProgress?: (percent: number, status: any, file: File) => void
-  onFinish?: (signResult: any, file: File) => void
+  onFinish?: (signResult: SignResult<T>, file: File) => void
   onError?: (error: Error, file: File) => void
   signingUrl?: string
   signingUrlMethod?: string

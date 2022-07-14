@@ -3,9 +3,11 @@ import S3Uploader from './s3Uploader';
 
 type Fn = (...args: any) => any;
 
+export type SignResult<T> = T & { signedUrl: string };
+
 export type Options<T> = {
   test?: boolean
-  getSignedUrl?: (file: File, next: (data: { signedUrl: string } & T) => void) => void 
+  getSignedUrl?: (file: File, next: (data: SignResult<T>) => void) => void 
   onUploadStart?: (file: File, next: (file: File) => void) => void
   onSignedUrl?: Fn
   onProgress?: (percent: number, status: any, file: File) => void
@@ -15,7 +17,7 @@ export type Options<T> = {
   signingUrlMethod?: string
   signingUrlHeaders?: Object | ((file: File) => (Object))
   accept?: string
-  uploadRequestHeaders?: Object | ((file: File) => (Object))
+  uploadRequestHeaders?: Object | ((signResult: SignResult<T>, file: File) => (Object))
   contentDisposition?: string
 }
 

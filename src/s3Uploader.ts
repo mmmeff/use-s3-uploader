@@ -1,5 +1,5 @@
 import mime from 'mime-types';
-import type { Options } from './useS3Uploader';
+import type { Options, UploadStatus } from './useS3Uploader';
 
 function getFileMimeType(file: File) {
   return file.type || mime.lookup(file.name);
@@ -65,7 +65,7 @@ class S3Upload<T> {
     } else {
       xhr.onload = function () {
         if (this.successResponses.indexOf(xhr.status) >= 0) {
-          this.onProgress(100, 'Upload completed', file);
+          this.onProgress(100, 'Completed', file);
           return this.onFinish(signResult, file);
         } else {
           return this.onError(
@@ -204,7 +204,7 @@ class S3Upload<T> {
     return next(file);
   };
 
-  onProgress = (percent, status, file) => {
+  onProgress = (percent, status: UploadStatus, file) => {
     return console.log('base.onProgress()', percent, status);
   };
 

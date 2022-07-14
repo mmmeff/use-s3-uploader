@@ -5,12 +5,14 @@ type Fn = (...args: any) => any;
 
 export type SignResult<T> = T & { signedUrl: string };
 
+export type UploadStatus = 'Waiting' | 'Uploading' | 'Finalizing' | 'Completed'
+
 export type Options<T> = {
   test?: boolean
   getSignedUrl?: (file: File, next: (data: SignResult<T>) => void) => void 
   onUploadStart?: (file: File, next: (file: File) => void) => void
   onSignedUrl?: Fn
-  onProgress?: (percent: number, status: 'Waiting' | 'Completed' | 'Finalizing' | 'Uploading', file: File) => void
+  onProgress?: (percent: number, status: UploadStatus, file: File) => void
   onFinish?: (signResult: SignResult<T>, file: File) => void
   onError?: (error: Error, file: File) => void
   signingUrl?: string

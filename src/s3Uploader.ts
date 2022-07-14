@@ -1,8 +1,7 @@
 import mime from 'mime-types';
+import { Options } from './useS3Uploader';
 
 type Fn = (...args: any) => any;
-
-type Options = any;
 
 function getFileMimeType(file) {
   return file.type || mime.lookup(file.name);
@@ -19,10 +18,10 @@ class S3Upload {
   uploadRequestHeaders: any;
   httprequest: any;
   signingUrlQueryParams: any;
-  signingUrlHeaders: any;
+  signingUrlHeaders: Options['signingUrlHeaders'] | null;
   signingUrlWithCredentials: any;
   el: HTMLInputElement;
-  getSignedUrl: (file: File, next: Fn) => any;
+  getSignedUrl: Options['getSignedUrl']
 
   constructor(options: Options) {
     const s3Upload = this;
@@ -163,7 +162,10 @@ class S3Upload {
     const xhr = this.createCORSRequest(this.signingUrlMethod,
       this.server + this.signingUrl + queryString, { withCredentials: this.signingUrlWithCredentials });
     if (this.signingUrlHeaders) {
-      const signingUrlHeaders = typeof this.signingUrlHeaders === 'function' ? this.signingUrlHeaders() : this.signingUrlHeaders;
+      const signingUrlHeaders = typeof this.signingUrlHeaders === 'function' 
+        ? this.signingUrlHeaders(file) 
+        : this.signingUrlHeaders;
+
       Object.keys(signingUrlHeaders).forEach(function (key) {
         const val = signingUrlHeaders[key];
         xhr.setRequestHeader(key, val);

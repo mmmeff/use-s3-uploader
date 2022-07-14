@@ -6,15 +6,15 @@ type Fn = (...args: any) => any;
 
 export type Options = {
   test?: boolean
-  getSignedUrl?: Fn
-  onUploadStart?: Fn
+  getSignedUrl?: (file: File, next: (data: { signedUrl: string }) => void) => void 
+  onUploadStart?: (file: File, next: (file: File) => void) => void
   onSignedUrl?: Fn
-  onProgress?: Fn
-  onFinish?: Fn
-  onError?: Fn
+  onProgress?: (percent: number, status: any, file: File) => void
+  onFinish?: (signResult: any, file: File) => void
+  onError?: (error: Error, file: File) => void
   signingUrl?: string
   signingUrlMethod?: string
-  signingUrlHeaders?: Object | Fn
+  signingUrlHeaders?: Object | ((file: File) => (Object))
   accept?: string
   uploadRequestHeaders?: Object | Fn
   contentDisposition?: string

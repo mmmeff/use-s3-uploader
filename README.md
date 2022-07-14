@@ -6,7 +6,7 @@ From Browser
 
 ```jsx
   import React, { useRef } from 'react';
-  import { useS3Uploader } from 'use-s3-uploader';
+  import { useS3Uploader } from '@mmmeff/use-s3-uploader';
 
   const Example = (props) => {
     const inputRef = useRef(null);
@@ -40,9 +40,8 @@ From Browser
       onError: onError,
       onFinish: onFinish,
       accept: 'image/*',
-      uploadRequestHeaders: {
-        'x-amz-acl': 'public-read',
-      },
+      uploadRequestHeaders: (file) => ({
+      }),
       contentDisposition: 'auto',
     }, inputRef);
 

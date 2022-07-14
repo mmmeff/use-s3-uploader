@@ -1,5 +1,5 @@
 import mime from 'mime-types';
-import type { Options } from './useS3Uploader.js';
+import type { Options } from './useS3Uploader';
 
 type Fn = (...args: any) => any;
 

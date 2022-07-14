@@ -33,6 +33,8 @@ const useS3Uploader = (options: Options, inputRef: Target) => {
   }, []);
 
   useEffect(() => {
+    if (!inputRef) return;
+
     const el = getTargetElement(inputRef);
     el.addEventListener('change', onFileChange);
     return () => {

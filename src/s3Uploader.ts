@@ -3,7 +3,7 @@ import { Options } from './useS3Uploader';
 
 type Fn = (...args: any) => any;
 
-function getFileMimeType(file) {
+function getFileMimeType(file: File) {
   return file.type || mime.lookup(file.name);
 }
 

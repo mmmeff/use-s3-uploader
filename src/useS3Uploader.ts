@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { RefObject, useCallback, useEffect, useMemo } from "react";
 import S3Uploader from './s3Uploader';
-import { getTargetElement, Target } from './utils/dom';
 
 type Fn = (...args: any) => any;
 
@@ -20,7 +19,7 @@ export type Options = {
   contentDisposition?: string
 }
 
-const useS3Uploader = (options: Options, inputRef: Target) => {
+const useS3Uploader = (options: Options, inputRef: RefObject<HTMLInputElement>) => {
   const s3Upload = useMemo(() => {
     const s3Uploader = new S3Uploader(options);
     if (options.test) console.log(s3Uploader);
@@ -33,12 +32,11 @@ const useS3Uploader = (options: Options, inputRef: Target) => {
   }, []);
 
   useEffect(() => {
-    if (!inputRef) return;
+    if (!inputRef.current) return;
 
-    const el = getTargetElement(inputRef);
-    el.addEventListener('change', onFileChange);
+    inputRef.current.addEventListener('change', onFileChange);
     return () => {
-      el.removeEventListener('change', onFileChange);
+      inputRef.current.removeEventListener('change', onFileChange);
     };
   }, [options, inputRef]);
 }

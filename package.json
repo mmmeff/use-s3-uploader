@@ -26,6 +26,7 @@
     "uploader"
   ],
   "scripts": {
+    "prepublishOnly": "yarn build:prod",
     "build:prod": "microbundle --define process.env.NODE_ENV=production --sourcemap false --tsconfig ./tsconfig.json",
     "build:dev": "microbundle --define process.env.NODE_ENV=development --sourcemap true --tsconfig ./tsconfig.json",
     "dev": "next"

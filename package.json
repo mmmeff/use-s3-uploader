@@ -1,16 +1,16 @@
 {
   "version": "1.1.0",
-  "name": "use-s3-uploader",
+  "name": "@stokespace/use-s3-uploader",
   "source": "src/index.ts",
   "main": "./dist/use-s3-uploader.cjs",
   "type": "module",
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wh5938316/use-s3-uploader.git"
+    "url": "https://github.com/mmmeff/use-s3-uploader.git"
   },
   "author": "WangHao",
-  "homepage": "https://github.com/wh5938316/use-s3-uploader",
+  "homepage": "https://github.com/mmmeff/use-s3-uploader",
   "license": "MIT",
   "keywords": [
     "react",

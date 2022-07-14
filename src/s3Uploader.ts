@@ -61,7 +61,7 @@ class S3Upload {
     return this.executeOnSignedUrl(file, uploadToS3Callback);
   };
 
-  uploadToS3(file, signResult) {
+  uploadToS3(file: File, signResult) {
     const xhr = this.createCORSRequest('PUT', signResult.signedUrl);
     if (!xhr) {
       this.onError('CORS not supported', file);
@@ -113,11 +113,10 @@ class S3Upload {
       let fileName = this.scrubFilename(file.name)
       headers['content-disposition'] = disposition + '; filename="' + fileName + '"';
     }
-    if (!this.uploadRequestHeaders) {
-      xhr.setRequestHeader('x-amz-acl', 'public-read');
-    }
     [signResult.headers, this.uploadRequestHeaders].filter(Boolean).forEach(function (hdrs) {
-      Object.entries(hdrs).forEach(function (pair) {
+      const resolvedHeaders = typeof hdrs === 'function' ? hdrs(file) : hdrs;
+
+      Object.entries(resolvedHeaders).forEach(function (pair) {
         headers[pair[0].toLowerCase()] = pair[1];
       })
     });

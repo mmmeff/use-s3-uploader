@@ -16,7 +16,7 @@ export type Options = {
   signingUrlMethod?: string
   signingUrlHeaders?: Object | Fn
   accept?: string
-  uploadRequestHeaders?: Object
+  uploadRequestHeaders?: Object | Fn
   contentDisposition?: string
 }
 

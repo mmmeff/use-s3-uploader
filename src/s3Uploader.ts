@@ -1,5 +1,5 @@
 import mime from 'mime-types';
-import type { Options, UploadStatus } from './useS3Uploader';
+import type { Options, SignResult, UploadStatus } from './useS3Uploader';
 
 function getFileMimeType(file: File) {
   return file.type || mime.lookup(file.name);
@@ -171,7 +171,7 @@ class S3Upload<T> {
     xhr.overrideMimeType && xhr.overrideMimeType('text/plain; charset=x-user-defined');
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && this.successResponses.indexOf(xhr.status) >= 0) {
-        let result;
+        let result: SignResult<T>;
         try {
           result = JSON.parse(xhr.responseText);
           this.onSignedUrl(result);
@@ -212,7 +212,7 @@ class S3Upload<T> {
     return console.log('base.onError()', status);
   };
 
-  onSignedUrl(result) { };
+  onSignedUrl(result: SignResult<T>) { };
 
   scrubFilename(filename) {
     return filename.replace(/[^\w\d_\-\.]+/ig, '');
